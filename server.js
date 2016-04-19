@@ -1,5 +1,6 @@
 var http = require('http');
 var fs = require('fs');
+var port = process.env.PORT || '8000';
 var server = http.createServer(function(req, res) {
     fs.readFile('index.html', 'utf-8', function(error, data) {
         res.writeHead(200, {
@@ -23,7 +24,7 @@ io.sockets.on('connect', function(socket){
 	// io.sockets.emit('message_to_client',{
 	// 	numUsers: numUsers
 	// });
-	
+
 	console.log("Someone connected to the server!!!");
 	// console.log(socket);
 	socket.on('message_to_server', function(data){
@@ -36,6 +37,6 @@ io.sockets.on('connect', function(socket){
 		messageArray.push(data.message);
 	});
 });
-server.listen(8500);
+server.listen(port);
 // server.listen(2100);
 console.log("William commands to listen Port 8500. I obey. Listening on Port 8500...");
