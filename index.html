@@ -1,32 +1,34 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title></title>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-		<script type="text/javascript" src="socket.io/socket.io.js"></script>
-		<script type="text/javascript">
-			console.log(io);
-			var socketio = io.connect('127.0.0.1:8500');
-			socketio.on('message_to_client', function(data){
-				document.getElementById('chat-window').innerHTML +=('<div class="im">' + data.message + ' -Sent at ' + data.date + '</div>');
-				console.log(data);
-			});
+<head>
+	<title></title>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
 
-			console.log(socketio);
-			
-			function sendMessage(){
-				var message = document.getElementById('message').value;
-				socketio.emit('message_to_server',{message: message});
-				event.preventDefault();
+	<script type="text/javascript">
+		
+	var socketio = io.connect('https://127.0.0.1:'+port);
+	socketio.on('message_to_client', function(data){
+		document.getElementById('chat-window').innerHTML += ('<div class="im">' + data.message + ' - Sent at ' + data.date + '</div>');
+		console.log(data);
+	});
+	console.log(socketio);
+	function sendMessage(){
+		var message = document.getElementById('message').value;
+		socketio.emit('message_to_server',{message: message});
+		event.preventDefault();
+	}
+	</script>
 
-			}
-		</script>
-	</head>
-	<body>
-		<h1> Chat Program!</h1>
-		<div id="chat-window"></div>
-		<form onsubmit="sendMessage()">
-			<input type="text" id="message" placeholder="Type your message here">
-		</form>
-	</body>
+</head>
+<body>
+
+	<h1>Chat Program!!</h1>
+
+	<div id="chat-window"></div>
+
+	<form onsubmit="sendMessage()">
+		<input type="text" id="message" placeholder="Type your message here">
+	</form>
+
+</body>
 </html>
